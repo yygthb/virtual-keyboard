@@ -10,6 +10,10 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     clean: true,
   },
+  devServer: {
+    port: 3005,
+    open: true,
+  },
   plugins: [
     new HtmlWebpackPlugin({
       template: './index.html',
@@ -28,7 +32,8 @@ module.exports = {
       ],
     }),
     new MiniCssExtractPlugin({
-      filename: '[name].[contenthash].css',
+      filename: '[name].css',
+      // filename: '[name].[contenthash].css',
     }),
   ],
   module: {
