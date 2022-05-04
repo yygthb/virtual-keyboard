@@ -1,3 +1,3 @@
 import './assets/scss/main.scss';
 
-console.log('virtual kb');
+import './assets/scripts/test';

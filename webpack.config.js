@@ -11,13 +11,13 @@ module.exports = {
     clean: true,
   },
   plugins: [
-    new HtmlWebpackPlugin({ 
+    new HtmlWebpackPlugin({
       template: './index.html',
       title: 'Virtual Keyboard',
       minify: {
         collapseWhitespace: false,
       },
-      inject: 'body'
+      inject: 'body',
     }),
     new CopyPlugin({
       patterns: [
@@ -35,8 +35,8 @@ module.exports = {
     rules: [
       {
         test: /\.s[ac]ss$/i,
-        use: [ MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader' ]
-      }
-    ]
-  }
-}
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+      },
+    ],
+  },
+};
