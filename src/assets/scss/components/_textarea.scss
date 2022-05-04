@@ -1,0 +1,9 @@
+.textarea {
+  resize: vertical;
+  border-color: #aaa;
+
+  &:focus {
+    outline: transparent;
+    border-color: #262626;
+  }
+}

@@ -1,0 +1,62 @@
+.keyboard {
+  display: block;
+  margin: -2px;
+  width: max-content;
+
+  .keys-row {
+    display: flex;
+
+    .tab {
+      flex-grow: 1;
+    }
+
+    .backslash {
+      flex-grow: 2;
+    }
+
+    .caps {
+      flex-grow: 1;
+    }
+
+    .enter {
+      flex-grow: 2;
+    }
+
+    .shiftLeft,
+    .shiftRight {
+      flex-grow: 4;
+    }
+
+    .delete {
+      flex-grow: 1;
+    }
+
+    &:last-child {
+      display: grid;
+      grid-template-columns:
+        1fr
+        repeat(2, max-content)
+        5fr
+        repeat(5, max-content);
+      grid-template-rows: repeat(2, 31px);
+
+      .controlLeft {
+        width: calc(100% - 4px);
+      }
+
+      .space {
+        width: calc(100% - 4px);
+      }
+
+      .arrowUp,
+      .arrowDown {
+        height: 29px;
+      }
+
+      .arrowDown {
+        grid-row-end: 3;
+        grid-column-start: 8;
+      }
+    }
+  }
+}
