@@ -1,19 +1,39 @@
 export default {
-  AltLeft: { key: 'Alt', shiftKey: null, className: 'altLeft' },
-  AltRight: { key: 'Alt', shiftKey: null, className: 'altRight' },
-  ArrowDown: { key: '🠗', shiftKey: null, className: 'arrowDown' },
-  ArrowLeft: { key: '🠔', shiftKey: null, className: 'arrowLeft' },
-  ArrowRight: { key: '🠖', shiftKey: null, className: 'arrowRight' },
-  ArrowUp: { key: '🠕', shiftKey: null, className: 'arrowUp' },
+  AltLeft: {
+    key: 'Alt', shiftKey: null, className: 'altLeft', isFunction: true,
+  },
+  AltRight: {
+    key: 'Alt', shiftKey: null, className: 'altRight', isFunction: true,
+  },
+  ArrowDown: {
+    key: '🠗', shiftKey: null, className: 'arrowDown', isFunction: true,
+  },
+  ArrowLeft: {
+    key: '🠔', shiftKey: null, className: 'arrowLeft', isFunction: true,
+  },
+  ArrowRight: {
+    key: '🠖', shiftKey: null, className: 'arrowRight', isFunction: true,
+  },
+  ArrowUp: {
+    key: '🠕', shiftKey: null, className: 'arrowUp', isFunction: true,
+  },
   Backquote: { key: 'ё', shiftKey: 'Ё', className: 'backquote' },
   Backslash: { key: '\\', shiftKey: '/', className: 'backslash' },
-  Backspace: { key: 'Backspace', shiftKey: null, className: 'backspace' },
+  Backspace: {
+    key: 'Backspace', shiftKey: null, className: 'backspace', isFunction: true,
+  },
   BracketLeft: { key: 'х', shiftKey: 'Х', className: 'bracketLeft' },
   BracketRight: { key: 'ъ', shiftKey: 'Ъ', className: 'bracketRight' },
-  CapsLock: { key: 'CapsLk', shiftKey: null, className: 'caps' },
+  CapsLock: {
+    key: 'CapsLk', shiftKey: null, className: 'caps', isFunction: true,
+  },
   Comma: { key: 'б', shiftKey: 'Б', className: 'comma' },
-  ControlLeft: { key: 'Ctrl', shiftKey: null, className: 'controlLeft' },
-  ControlRight: { key: 'Ctrl', shiftKey: null, className: 'controlRight' },
+  ControlLeft: {
+    key: 'Ctrl', shiftKey: null, className: 'controlLeft', isFunction: true,
+  },
+  ControlRight: {
+    key: 'Ctrl', shiftKey: null, className: 'controlRight', isFunction: true,
+  },
   Delete: { key: 'Del', shiftKey: null, className: 'delete' },
   Digit0: { key: '0', shiftKey: ')', className: 'digit0' },
   Digit1: { key: '1', shiftKey: '!', className: 'digit1' },
@@ -25,7 +45,9 @@ export default {
   Digit7: { key: '7', shiftKey: '?', className: 'digit7' },
   Digit8: { key: '8', shiftKey: '*', className: 'digit8' },
   Digit9: { key: '9', shiftKey: '(', className: 'digit9' },
-  Enter: { key: 'Enter', shiftKey: null, className: 'enter' },
+  Enter: {
+    key: 'Enter', shiftKey: null, className: 'enter', isFunction: true,
+  },
   Equal: { key: '=', shiftKey: '+', className: 'equal' },
   KeyA: { key: 'ф', shiftKey: 'Ф', className: 'keyA' },
   KeyB: { key: 'и', shiftKey: 'И', className: 'keyB' },
@@ -53,14 +75,22 @@ export default {
   KeyX: { key: 'ч', shiftKey: 'Ч', className: 'keyX' },
   KeyY: { key: 'н', shiftKey: 'Н', className: 'keyY' },
   KeyZ: { key: 'я', shiftKey: 'Я', className: 'keyZ' },
-  MetaLeft: { key: '⊞', shiftKey: null, className: 'metaLeft' },
+  MetaLeft: {
+    key: '⊞', shiftKey: null, className: 'metaLeft', isFunction: true,
+  },
   Minus: { key: '-', shiftKey: '_', className: 'minus' },
   Period: { key: 'ю', shiftKey: 'Ю', className: 'period' },
   Quote: { key: 'э', shiftKey: 'Э', className: 'quote' },
   Semicolon: { key: 'ж', shiftKey: 'Ж', className: 'semicolon' },
-  ShiftLeft: { key: 'Shift', shiftKey: null, className: 'shiftLeft' },
-  ShiftRight: { key: 'Shift', shiftKey: null, className: 'shiftRight' },
+  ShiftLeft: {
+    key: 'Shift', shiftKey: null, className: 'shiftLeft', isFunction: true,
+  },
+  ShiftRight: {
+    key: 'Shift', shiftKey: null, className: 'shiftRight', isFunction: true,
+  },
   Slash: { key: '.', shiftKey: ',', className: 'slash' },
   Space: { key: ' ', shiftKey: null, className: 'space' },
-  Tab: { key: 'Tab', shiftKey: null, className: 'tab' },
+  Tab: {
+    key: 'Tab', shiftKey: null, className: 'tab', isFunction: true,
+  },
 };

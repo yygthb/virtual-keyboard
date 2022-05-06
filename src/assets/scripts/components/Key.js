@@ -31,12 +31,24 @@ export class Key {
     key,
     shiftKey,
     className,
+    isFunction,
   }) {
     this.code = code;
     this.key = key;
     this.shiftKey = shiftKey;
     this.className = className;
+    this.isFunction = isFunction || false;
 
     this.container = createKeyContainer({ key, shiftKey, className });
+  }
+
+  keydown() {
+    this.container.classList.add('active');
+    return this;
+  }
+
+  keyup() {
+    this.container.classList.remove('active');
+    return this;
   }
 }

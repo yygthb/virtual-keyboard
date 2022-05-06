@@ -33,4 +33,10 @@
     flex-grow: 1;
     text-align: center;
   }
+
+  &.active {
+    border-radius: 10px;
+    background-color: #777;
+    transition: all 0.2s ease;
+  }
 }
