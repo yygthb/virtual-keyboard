@@ -2,18 +2,18 @@ import createElement from '../utils/createElement';
 import { setStorage, getStorage } from '../utils/storage';
 import { Key } from './Key';
 
-const getDefaultLang = (languages) => {
-  const lang = Object.keys(languages)[1];
+const getDefaultLang = (langLayouts) => {
+  const lang = Object.keys(langLayouts)[0];
   setStorage('kb-lang', lang);
   return lang;
 };
 
 export class KeyBoard {
-  constructor(languages, keyboardKit) {
-    this.languages = languages;
+  constructor(langLayouts, keyboardKit) {
+    this.langLayouts = langLayouts;
     this.kbKit = keyboardKit;
 
-    this.kbLang = getStorage('kb-lang') || getDefaultLang(languages);
+    this.kbLang = getStorage('kb-lang') || getDefaultLang(langLayouts);
   }
 
   init() {
@@ -29,7 +29,7 @@ export class KeyBoard {
         classNames: 'keys-row',
       });
       kbRow.forEach((keyCode) => {
-        const foundKey = this.languages[this.kbLang][keyCode];
+        const foundKey = this.langLayouts[this.kbLang][keyCode];
         if (foundKey) {
           const $key = new Key({
             code: keyCode,

@@ -1,6 +1,6 @@
 import { KeyBoard } from './components/KeyBoard';
 import createElement from './utils/createElement';
-import { languages, keyboardKit } from './layout';
+import { langLayouts, keyboardKit } from './layout';
 
 const body = document.querySelector('body');
 
@@ -21,7 +21,7 @@ const $textArea = createElement({
 });
 
 // init keyboard
-const kb = new KeyBoard(languages, keyboardKit).init();
+const kb = new KeyBoard(langLayouts, keyboardKit).init();
 
 const app = createElement({
   attributes: [['id', 'app']],
