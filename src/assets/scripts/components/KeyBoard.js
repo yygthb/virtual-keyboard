@@ -39,11 +39,8 @@ export class KeyBoard {
             ...foundKey,
           });
 
-          key.container.addEventListener('mousedown', this.#keyHandler.bind(this, key));
-          key.container.addEventListener('mouseup', () => {
-            key.keyup();
-            this.textarea.focus();
-          });
+          key.container.addEventListener('mousedown', this.#keyDownHandler.bind(this, key));
+          key.container.addEventListener('mouseup', this.#keyUpHandler.bind(this, key));
 
           this.keys.push(key);
           row.append(key.container);
@@ -70,7 +67,7 @@ export class KeyBoard {
 
       const eCode = e.code;
       this.keys.forEach((key) => {
-        if (key.code === eCode) this.#keyHandler.call(this, key);
+        if (key.code === eCode) this.#keyDownHandler.call(this, key);
       });
     });
 
@@ -79,16 +76,14 @@ export class KeyBoard {
 
       const eCode = e.code;
       this.keys.forEach((key) => {
-        if (key.code === eCode) {
-          key.keyup();
-        }
+        if (key.code === eCode) this.#keyUpHandler.call(this, key);
       });
     });
 
     return this;
   }
 
-  #keyHandler(key) {
+  #keyDownHandler(key) {
     key.keydown();
 
     // text key
@@ -127,6 +122,12 @@ export class KeyBoard {
 
     this.textarea.focus();
 
+    return this;
+  }
+
+  #keyUpHandler(key) {
+    key.keyup();
+    this.textarea.focus();
     return this;
   }
 
