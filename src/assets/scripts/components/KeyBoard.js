@@ -38,7 +38,13 @@ export class KeyBoard {
             code: keyCode,
             ...foundKey,
           });
-          // console.log(key);
+
+          key.container.addEventListener('mousedown', this.#keyHandler.bind(this, key));
+          key.container.addEventListener('mouseup', () => {
+            key.keyup();
+            this.textarea.focus();
+          });
+
           this.keys.push(key);
           row.append(key.container);
         }
@@ -64,48 +70,8 @@ export class KeyBoard {
 
       const eCode = e.code;
       this.keys.forEach((key) => {
-        if (key.code === eCode) {
-          key.keydown();
-
-          // text key
-          if (!key.isFunction) {
-            this.textarea.value = this.#updateText(this.cursorPosition, key.key);
-            this.cursorPosition += 1;
-            this.textarea.selectionEnd = this.cursorPosition;
-          }
-
-          // enter
-          if (key.code === 'Enter') {
-            this.textarea.value = this.#updateText(this.cursorPosition, '\n');
-            this.cursorPosition += 1;
-            this.textarea.selectionEnd = this.cursorPosition;
-          }
-
-          // arrow left
-          if (key.code === 'ArrowLeft' && this.cursorPosition > 0) {
-            this.cursorPosition -= 1;
-            this.textarea.selectionEnd = this.cursorPosition;
-          }
-
-          // arrow right
-          if (key.code === 'ArrowRight' && this.cursorPosition < this.textarea.value.length) {
-            this.cursorPosition += 1;
-            this.textarea.selectionStart = this.cursorPosition;
-          }
-
-          // backspace
-          if (key.code === 'Backspace' && this.cursorPosition > 0) {
-            const originalText = this.textarea.value;
-            this.textarea.value = `${originalText.substring(0, this.cursorPosition - 1)}${originalText.substring(this.cursorPosition)}`;
-            this.cursorPosition -= 1;
-            this.textarea.selectionEnd = this.cursorPosition;
-          }
-
-          this.textarea.focus();
-        }
+        if (key.code === eCode) this.#keyHandler.call(this, key);
       });
-
-      // console.log(this);
     });
 
     window.addEventListener('keyup', (e) => {
@@ -118,6 +84,48 @@ export class KeyBoard {
         }
       });
     });
+
+    return this;
+  }
+
+  #keyHandler(key) {
+    key.keydown();
+
+    // text key
+    if (!key.isFunction) {
+      this.textarea.value = this.#updateText(this.cursorPosition, key.key);
+      this.cursorPosition += 1;
+      this.textarea.selectionEnd = this.cursorPosition;
+    }
+
+    // enter
+    if (key.code === 'Enter') {
+      this.textarea.value = this.#updateText(this.cursorPosition, '\n');
+      this.cursorPosition += 1;
+      this.textarea.selectionEnd = this.cursorPosition;
+    }
+
+    // arrow left
+    if (key.code === 'ArrowLeft' && this.cursorPosition > 0) {
+      this.cursorPosition -= 1;
+      this.textarea.selectionEnd = this.cursorPosition;
+    }
+
+    // arrow right
+    if (key.code === 'ArrowRight' && this.cursorPosition < this.textarea.value.length) {
+      this.cursorPosition += 1;
+      this.textarea.selectionStart = this.cursorPosition;
+    }
+
+    // backspace
+    if (key.code === 'Backspace' && this.cursorPosition > 0) {
+      const originalText = this.textarea.value;
+      this.textarea.value = `${originalText.substring(0, this.cursorPosition - 1)}${originalText.substring(this.cursorPosition)}`;
+      this.cursorPosition -= 1;
+      this.textarea.selectionEnd = this.cursorPosition;
+    }
+
+    this.textarea.focus();
 
     return this;
   }
