@@ -55,13 +55,12 @@ export class KeyBoard {
   output(prop) {
     this.textarea = prop;
     this.textarea.focus();
-
-    this.#listen();
+    this.#keyPressLinten();
 
     return this;
   }
 
-  #listen() {
+  #keyPressLinten() {
     window.addEventListener('keydown', (e) => {
       e.preventDefault();
 
@@ -100,6 +99,13 @@ export class KeyBoard {
       this.textarea.selectionEnd = this.cursorPosition;
     }
 
+    // tab
+    if (key.code === 'Tab') {
+      this.textarea.value = this.#updateText(this.cursorPosition, '\t');
+      this.cursorPosition += 1;
+      this.textarea.selectionEnd = this.cursorPosition;
+    }
+
     // arrow left
     if (key.code === 'ArrowLeft' && this.cursorPosition > 0) {
       this.cursorPosition -= 1;
@@ -117,6 +123,13 @@ export class KeyBoard {
       const originalText = this.textarea.value;
       this.textarea.value = `${originalText.substring(0, this.cursorPosition - 1)}${originalText.substring(this.cursorPosition)}`;
       this.cursorPosition -= 1;
+      this.textarea.selectionEnd = this.cursorPosition;
+    }
+
+    // delete
+    if (key.code === 'Delete') {
+      const originalText = this.textarea.value;
+      this.textarea.value = `${originalText.substring(0, this.cursorPosition)}${originalText.substring(this.cursorPosition + 1)}`;
       this.textarea.selectionEnd = this.cursorPosition;
     }
 

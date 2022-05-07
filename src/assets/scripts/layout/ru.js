@@ -34,7 +34,9 @@ export default {
   ControlRight: {
     key: 'Ctrl', shiftKey: null, className: 'controlRight', isFunction: true,
   },
-  Delete: { key: 'Del', shiftKey: null, className: 'delete' },
+  Delete: {
+    key: 'Del', shiftKey: null, className: 'delete', isFunction: true,
+  },
   Digit0: { key: '0', shiftKey: ')', className: 'digit0' },
   Digit1: { key: '1', shiftKey: '!', className: 'digit1' },
   Digit2: { key: '2', shiftKey: '"', className: 'digit2' },
