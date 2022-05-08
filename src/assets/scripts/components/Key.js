@@ -1,29 +1,5 @@
 import createElement from '../utils/createElement';
 
-const createKeyContainer = (keyObj) => {
-  const $primaryKey = createElement({
-    classNames: 'key-code__primary',
-    child: keyObj.key,
-  });
-
-  let $secondaryKey = createElement({
-    classNames: 'key-code__secondary',
-    child: '',
-  });
-  if (keyObj.shiftKey && keyObj.shiftKey.match(/[^a-zA-Zа-яА-Я0-9]/)) {
-    $secondaryKey = createElement({
-      classNames: 'key-code__secondary',
-      child: keyObj.shiftKey,
-    });
-  }
-
-  return createElement({
-    tagName: 'button',
-    classNames: `key-item ${keyObj.className}`,
-    child: [$secondaryKey, $primaryKey],
-  });
-};
-
 export class Key {
   // prettier-ignore
   constructor({
@@ -38,8 +14,31 @@ export class Key {
     this.shiftKey = shiftKey;
     this.className = className;
     this.isFunction = isFunction || false;
+  }
 
-    this.container = createKeyContainer({ key, shiftKey, className });
+  render() {
+    this.primaryKeyNode = createElement({
+      classNames: 'key-code__primary',
+      child: this.key,
+    });
+    this.secondaryKeyNode = createElement({
+      classNames: 'key-code__secondary',
+      child: '',
+    });
+    if (this.shiftKey && this.shiftKey.match(/[^a-zA-Zа-яА-Я0-9ёЁ]/)) {
+      this.secondaryKeyNode = createElement({
+        classNames: 'key-code__secondary',
+        child: this.shiftKey,
+      });
+    }
+
+    this.container = createElement({
+      tagName: 'button',
+      classNames: `key-item ${this.className}`,
+      child: [this.secondaryKeyNode, this.primaryKeyNode],
+    });
+
+    return this;
   }
 
   keydown() {
@@ -49,6 +48,21 @@ export class Key {
 
   keyup() {
     this.container.classList.remove('active');
+    return this;
+  }
+
+  changeData(keyData) {
+    this.primaryKeyNode.textContent = keyData.key;
+    this.key = keyData.key;
+
+    if (keyData.shiftKey && keyData.shiftKey.match(/[^a-zA-Zа-яА-Я0-9ёЁ]/)) {
+      this.shiftKey = keyData.shiftKey;
+      this.secondaryKeyNode.textContent = keyData.shiftKey;
+    } else {
+      this.shiftKey = null;
+      this.secondaryKeyNode.textContent = '';
+    }
+
     return this;
   }
 }

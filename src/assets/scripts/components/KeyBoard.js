@@ -2,20 +2,45 @@ import createElement from '../utils/createElement';
 import { setStorage, getStorage } from '../utils/storage';
 import { Key } from './Key';
 
-const getDefaultLang = (langLayouts) => {
-  const lang = Object.keys(langLayouts)[0];
-  setStorage('kb-lang', lang);
-
-  return lang;
-};
-
 export class KeyBoard {
   constructor(langLayouts, keyboardKit) {
     this.langLayouts = langLayouts;
     this.kbKit = keyboardKit;
     this.cursorPosition = 0;
 
-    this.kbLang = getStorage('kb-lang') || getDefaultLang(langLayouts);
+    this.langLayoutCount = 0;
+    this.kbLang = this.#initLang();
+  }
+
+  #initLang() {
+    let lang = getStorage('kb-lang');
+    if (lang) {
+      // set langLayoutCount
+      Object.keys(this.langLayouts).forEach((item, idx) => {
+        if (item === lang) {
+          this.langLayoutCount = idx;
+        }
+      });
+    } else {
+      // lang = langLayouts[0]
+      [lang] = Object.keys(this.langLayouts);
+    }
+
+    setStorage('kb-lang', lang);
+    return lang;
+  }
+
+  #changeKbLang() {
+    const langsArr = Object.keys(this.langLayouts);
+    if (this.langLayoutCount !== langsArr.length - 1) {
+      this.langLayoutCount += 1;
+    } else {
+      this.langLayoutCount = 0;
+    }
+
+    const lang = langsArr[this.langLayoutCount];
+    setStorage('kb-lang', lang);
+    this.kbLang = lang;
   }
 
   init() {
@@ -25,7 +50,13 @@ export class KeyBoard {
         classNames: 'box',
       }),
     });
+    this.#renderKb();
 
+    return this;
+  }
+
+  #renderKb() {
+    this.container.replaceChildren();
     this.keys = [];
     this.kbKit.forEach((kbRow) => {
       const row = createElement({
@@ -37,10 +68,16 @@ export class KeyBoard {
           const key = new Key({
             code: keyCode,
             ...foundKey,
-          });
+          }).render();
 
-          key.container.addEventListener('mousedown', this.#keyDownHandler.bind(this, key));
-          key.container.addEventListener('mouseup', this.#keyUpHandler.bind(this, key));
+          key.container.addEventListener(
+            'mousedown',
+            this.#keyDownHandler.bind(this, key),
+          );
+          key.container.addEventListener(
+            'mouseup',
+            this.#keyUpHandler.bind(this, key),
+          );
 
           this.keys.push(key);
           row.append(key.container);
@@ -48,8 +85,6 @@ export class KeyBoard {
       });
       this.container.append(row);
     });
-
-    return this;
   }
 
   output(prop) {
@@ -113,7 +148,11 @@ export class KeyBoard {
     }
 
     // arrow right
-    if (key.code === 'ArrowRight' && this.cursorPosition < this.textarea.value.length) {
+    if (
+      // prettier-ignore
+      key.code === 'ArrowRight'
+      && this.cursorPosition < this.textarea.value.length
+    ) {
       this.cursorPosition += 1;
       this.textarea.selectionStart = this.cursorPosition;
     }
@@ -121,7 +160,10 @@ export class KeyBoard {
     // backspace
     if (key.code === 'Backspace' && this.cursorPosition > 0) {
       const originalText = this.textarea.value;
-      this.textarea.value = `${originalText.substring(0, this.cursorPosition - 1)}${originalText.substring(this.cursorPosition)}`;
+      this.textarea.value = `${originalText.substring(
+        0,
+        this.cursorPosition - 1,
+      )}${originalText.substring(this.cursorPosition)}`;
       this.cursorPosition -= 1;
       this.textarea.selectionEnd = this.cursorPosition;
     }
@@ -129,8 +171,27 @@ export class KeyBoard {
     // delete
     if (key.code === 'Delete') {
       const originalText = this.textarea.value;
-      this.textarea.value = `${originalText.substring(0, this.cursorPosition)}${originalText.substring(this.cursorPosition + 1)}`;
+      this.textarea.value = `${originalText.substring(
+        0,
+        this.cursorPosition,
+      )}${originalText.substring(this.cursorPosition + 1)}`;
       this.textarea.selectionEnd = this.cursorPosition;
+    }
+
+    // ctrl
+    if (key.key === 'Ctrl') {
+      this.isCtrlActive = true;
+      if (this.isShiftActive) {
+        this.#changeLangHandler();
+      }
+    }
+
+    // shift
+    if (key.key === 'Shift') {
+      this.isShiftActive = true;
+      if (this.isCtrlActive) {
+        this.#changeLangHandler();
+      }
     }
 
     this.textarea.focus();
@@ -138,7 +199,23 @@ export class KeyBoard {
     return this;
   }
 
+  #changeLangHandler() {
+    this.#changeKbLang();
+
+    this.keys.forEach((key) => {
+      key.changeData(this.langLayouts[this.kbLang][key.code]);
+    });
+  }
+
   #keyUpHandler(key) {
+    if (key.key === 'Ctrl') {
+      this.isCtrlActive = false;
+    }
+
+    if (key.key === 'Shift') {
+      this.isShiftActive = false;
+    }
+
     key.keyup();
     this.textarea.focus();
     return this;
@@ -146,6 +223,9 @@ export class KeyBoard {
 
   #updateText(position, symbol) {
     const originalText = this.textarea.value;
-    return `${originalText.substring(0, position)}${symbol}${originalText.substring(position)}`;
+    return `${originalText.substring(
+      0,
+      position,
+    )}${symbol}${originalText.substring(position)}`;
   }
 }
