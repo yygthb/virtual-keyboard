@@ -23,20 +23,18 @@ export class Key {
     });
     this.secondaryKeyNode = createElement({
       classNames: 'key-code__secondary',
-      child: '',
+      child: this.shiftKey,
     });
-    if (this.shiftKey && this.shiftKey.match(/[^a-zA-Zа-яА-Я0-9ёЁ]/)) {
-      this.secondaryKeyNode = createElement({
-        classNames: 'key-code__secondary',
-        child: this.shiftKey,
-      });
-    }
 
     this.container = createElement({
       tagName: 'button',
       classNames: `key-item ${this.className}`,
       child: [this.secondaryKeyNode, this.primaryKeyNode],
     });
+
+    if (this.shiftKey && this.shiftKey.match(/[a-zA-Zа-яА-Я0-9ёЁ]/)) {
+      this.container.classList.add('key-item__letter');
+    }
 
     return this;
   }
@@ -51,18 +49,21 @@ export class Key {
     return this;
   }
 
-  changeData(keyData) {
-    this.primaryKeyNode.textContent = keyData.key;
-    this.key = keyData.key;
+  changeData({ key, shiftKey }) {
+    this.key = key;
+    this.primaryKeyNode.textContent = key;
+    this.shiftKey = shiftKey;
+    this.secondaryKeyNode.textContent = shiftKey;
 
-    if (keyData.shiftKey && keyData.shiftKey.match(/[^a-zA-Zа-яА-Я0-9ёЁ]/)) {
-      this.shiftKey = keyData.shiftKey;
-      this.secondaryKeyNode.textContent = keyData.shiftKey;
-    } else {
-      this.shiftKey = null;
-      this.secondaryKeyNode.textContent = '';
+    this.container.classList.remove('key-item__letter');
+    if (shiftKey && shiftKey.match(/[a-zA-Zа-яА-Я0-9ёЁ]/)) {
+      this.container.classList.add('key-item__letter');
     }
 
     return this;
+  }
+
+  highlight() {
+    this.container.classList.toggle('highlight');
   }
 }

@@ -90,12 +90,12 @@ export class KeyBoard {
   output(prop) {
     this.textarea = prop;
     this.textarea.focus();
-    this.#keyPressLinten();
+    this.#keyPressListen();
 
     return this;
   }
 
-  #keyPressLinten() {
+  #keyPressListen() {
     window.addEventListener('keydown', (e) => {
       e.preventDefault();
 
@@ -178,6 +178,13 @@ export class KeyBoard {
       this.textarea.selectionEnd = this.cursorPosition;
     }
 
+    // CapsLock
+    if (key.key === 'CapsLk') {
+      this.isCapitalCase = !this.isCapitalCase;
+      key.highlight();
+      this.#changeCase();
+    }
+
     // ctrl
     if (key.key === 'Ctrl') {
       this.isCtrlActive = true;
@@ -202,8 +209,29 @@ export class KeyBoard {
   #changeLangHandler() {
     this.#changeKbLang();
 
-    this.keys.forEach((key) => {
-      key.changeData(this.langLayouts[this.kbLang][key.code]);
+    this.keys.forEach((k) => {
+      if (!k.isFunction) {
+        const { key, shiftKey } = this.langLayouts[this.kbLang][k.code];
+        k.changeData({ key, shiftKey });
+      }
+    });
+
+    // rerender Ё, Ж, Х, Ъ, Б, Ю keys, if necessary
+    if (this.isCapitalCase) {
+      this.#changeCase();
+    }
+  }
+
+  #changeCase() {
+    this.keys.forEach((k) => {
+      if (!k.isFunction && k.key && k.key.match(/[a-zA-Zа-яА-ЯёЁ]/)) {
+        const { key: a, shiftKey: b } = this.langLayouts[this.kbLang][k.code];
+        if (!this.isCapitalCase) {
+          k.changeData({ key: a, shiftKey: b });
+        } else {
+          k.changeData({ key: b, shiftKey: a });
+        }
+      }
     });
   }
 
