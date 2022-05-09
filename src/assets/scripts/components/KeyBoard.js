@@ -90,6 +90,12 @@ export class KeyBoard {
   output(prop) {
     this.textarea = prop;
     this.textarea.focus();
+
+    this.textarea.addEventListener('click', (e) => {
+      e.preventDefault();
+      this.cursorPosition = this.textarea.selectionStart;
+    });
+
     this.#keyPressListen();
 
     return this;
