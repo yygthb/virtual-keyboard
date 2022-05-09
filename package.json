@@ -1,0 +1,42 @@
+{
+  "name": "virtual-keyboard",
+  "version": "1.0.0",
+  "description": "virtual web keyboard",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx eslint src && cross-env NODE_ENV=production webpack",
+    "serve": "npx eslint src && cross-env NODE_ENV=development webpack serve --no-client-overlay-warnings",
+    "dev": "npx eslint src && cross-env NODE_ENV=development webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yygthb/virtual-keyboard.git"
+  },
+  "keywords": [
+    "HTML",
+    "JS",
+    "ES6"
+  ],
+  "author": "yy.ainu.dev@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yygthb/virtual-keyboard/issues"
+  },
+  "homepage": "https://github.com/yygthb/virtual-keyboard#readme",
+  "devDependencies": {
+    "copy-webpack-plugin": "^10.2.4",
+    "cross-env": "^7.0.3",
+    "css-loader": "^6.7.1",
+    "eslint": "^8.14.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.6.0",
+    "sass": "^1.51.0",
+    "sass-loader": "^12.6.0",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.72.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.9.0"
+  }
+}

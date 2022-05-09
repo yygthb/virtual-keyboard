@@ -1,0 +1,38 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: "Roboto", "Helvetica", sans-serif;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: max-content;
+  margin: 0 auto;
+  padding: 0 40px;
+  font-family: "Roboto", sans-serif;
+}
+
+button {
+  border: none;
+}
+
+a {
+  cursor: pointer;
+  color: $color-secondary;
+
+  &:hover {
+    color: darken($color-secondary, 20%);
+  }
+}
+
+h1,
+p {
+  margin: 0;
+}
