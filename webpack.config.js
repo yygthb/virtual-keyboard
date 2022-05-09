@@ -3,9 +3,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
+const isProd = process.env.NODE_ENV === 'production';
+
 module.exports = {
+  mode: process.env.NODE_ENV,
+  devtool: !isProd && 'source-map',
   entry: './src/index.js',
-  devtool: 'source-map',
   output: {
     filename: '[fullhash].js',
     path: path.resolve(__dirname, 'dist'),
@@ -33,8 +36,7 @@ module.exports = {
       ],
     }),
     new MiniCssExtractPlugin({
-      filename: '[name].css',
-      // filename: '[name].[contenthash].css',
+      filename: isProd ? '[name].[contenthash].css' : '[name].css',
     }),
   ],
   module: {

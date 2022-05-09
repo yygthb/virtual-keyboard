@@ -4,8 +4,9 @@
   "description": "virtual web keyboard",
   "main": "index.js",
   "scripts": {
-    "build": "npx eslint src && webpack",
-    "serve": "npx eslint src && webpack serve --no-client-overlay-warnings"
+    "build": "npx eslint src && NODE_ENV=production webpack",
+    "serve": "npx eslint src && NODE_ENV=development webpack serve --no-client-overlay-warnings",
+    "dev": "npx eslint src && NODE_ENV=development webpack"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,7 @@
   "homepage": "https://github.com/yygthb/virtual-keyboard#readme",
   "devDependencies": {
     "copy-webpack-plugin": "^10.2.4",
+    "cross-env": "^7.0.3",
     "css-loader": "^6.7.1",
     "eslint": "^8.14.0",
     "eslint-config-airbnb-base": "^15.0.0",
