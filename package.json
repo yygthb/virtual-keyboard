@@ -4,9 +4,9 @@
   "description": "virtual web keyboard",
   "main": "index.js",
   "scripts": {
-    "build": "npx eslint src && NODE_ENV=production webpack",
-    "serve": "npx eslint src && NODE_ENV=development webpack serve --no-client-overlay-warnings",
-    "dev": "npx eslint src && NODE_ENV=development webpack"
+    "build": "npx eslint src && cross-env NODE_ENV=production webpack",
+    "serve": "npx eslint src && cross-env NODE_ENV=development webpack serve --no-client-overlay-warnings",
+    "dev": "npx eslint src && cross-env NODE_ENV=development webpack"
   },
   "repository": {
     "type": "git",
