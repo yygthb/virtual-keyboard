@@ -1,6 +1,6 @@
 import createElement from '../utils/createElement';
 
-export class Key {
+export default class Key {
   // prettier-ignore
   constructor({
     code,

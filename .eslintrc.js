@@ -7,8 +7,4 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 'latest',
   },
-  rules: {
-    'no-console': 'off',
-    'import/prefer-default-export': 'off',
-  },
 };

@@ -1,8 +1,8 @@
 import createElement from '../utils/createElement';
 import { setStorage, getStorage } from '../utils/storage';
-import { Key } from './Key';
+import Key from './Key';
 
-export class KeyBoard {
+export default class KeyBoard {
   constructor(langLayouts, keyboardKit) {
     this.langLayouts = langLayouts;
     this.kbKit = keyboardKit;

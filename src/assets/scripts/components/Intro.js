@@ -2,7 +2,7 @@ import createElement from '../utils/createElement';
 
 const infoArr = ['to swhtch keyboard language use Ctrl + Shift'];
 
-export const kbIntro = () => {
+export default function introText() {
   const $title = createElement({
     tagName: 'h1',
     classNames: 'title',
@@ -46,4 +46,4 @@ export const kbIntro = () => {
   });
 
   return container;
-};
+}

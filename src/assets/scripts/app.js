@@ -1,13 +1,13 @@
-import { KeyBoard } from './components/KeyBoard';
-import createElement from './utils/createElement';
 import { langLayouts, keyboardKit } from './layout';
-import { kbIntro } from './components/Intro';
-import { textarea } from './components/Textarea';
+import createElement from './utils/createElement';
+import introText from './components/Intro';
+import textarea from './components/Textarea';
+import KeyBoard from './components/KeyBoard';
 
 const body = document.querySelector('body');
 
 // app info and textarea
-const $info = kbIntro();
+const $info = introText();
 const $textArea = textarea();
 // init keyboard
 const kb = new KeyBoard(langLayouts, keyboardKit).init();

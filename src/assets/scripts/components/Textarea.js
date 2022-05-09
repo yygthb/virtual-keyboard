@@ -1,6 +1,6 @@
 import createElement from '../utils/createElement';
 
-export const textarea = () => {
+const textarea = () => {
   const node = createElement({
     tagName: 'textarea',
     classNames: 'textarea',
@@ -13,3 +13,5 @@ export const textarea = () => {
 
   return node;
 };
+
+export default textarea;
