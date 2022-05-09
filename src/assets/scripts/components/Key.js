@@ -43,11 +43,16 @@ export class Key {
 
   keydown() {
     this.container.classList.add('active');
+
+    this.mouseOutHandler = this.keyup.bind(this);
+    this.container.addEventListener('mouseout', this.mouseOutHandler);
+
     return this;
   }
 
   keyup() {
     this.container.classList.remove('active');
+    this.container.removeEventListener('mouseout', this.mouseOutHandler);
     return this;
   }
 

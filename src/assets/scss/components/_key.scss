@@ -30,12 +30,14 @@ $color-secondary: #ff6b6b;
 
   color: #fff;
   background-color: $color-primary;
+  transition: background-color 0.2s ease;
 
   &:hover {
     background-color: rgba($color-primary, 0.8);
   }
 
   div {
+    pointer-events: none;
     transition: transform 0.2s ease;
   }
 
@@ -61,7 +63,7 @@ $color-secondary: #ff6b6b;
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background-color: #eee;
+    background-color: $color-secondary;
   }
 
   &.key-item__letter {
