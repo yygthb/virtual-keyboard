@@ -22,3 +22,17 @@ body {
 button {
   border: none;
 }
+
+a {
+  cursor: pointer;
+  color: $color-secondary;
+
+  &:hover {
+    color: darken($color-secondary, 20%);
+  }
+}
+
+h1,
+p {
+  margin: 0;
+}
