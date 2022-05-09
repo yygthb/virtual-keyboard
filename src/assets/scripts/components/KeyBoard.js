@@ -122,7 +122,14 @@ export class KeyBoard {
 
     // text key
     if (!key.isFunction) {
-      this.textarea.value = this.#updateText(this.cursorPosition, key.key);
+      if (this.isShiftActive) {
+        this.textarea.value = this.#updateText(
+          this.cursorPosition,
+          key.shiftKey,
+        );
+      } else {
+        this.textarea.value = this.#updateText(this.cursorPosition, key.key);
+      }
       this.cursorPosition += 1;
       this.textarea.selectionEnd = this.cursorPosition;
     }
@@ -196,13 +203,13 @@ export class KeyBoard {
     // shift
     if (key.key === 'Shift') {
       this.isShiftActive = true;
+      this.container.classList.add('shift');
       if (this.isCtrlActive) {
         this.#changeLangHandler();
       }
     }
 
-    this.textarea.focus();
-
+    // this.textarea.focus();
     return this;
   }
 
@@ -241,6 +248,7 @@ export class KeyBoard {
     }
 
     if (key.key === 'Shift') {
+      this.container.classList.remove('shift');
       this.isShiftActive = false;
     }
 

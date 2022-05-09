@@ -1,3 +1,19 @@
+$color-primary: #556270;
+$color-secondary: #ff6b6b;
+
+@mixin key-code-primary {
+  position: static;
+  font-size: 1em;
+}
+
+@mixin key-code-secondary {
+  position: absolute;
+  z-index: 1;
+  top: 5px;
+  left: 5px;
+  font-size: 0.85em;
+}
+
 .key-item {
   position: relative;
   width: 60px;
@@ -7,38 +23,33 @@
   border-radius: 3px;
   margin: 2px;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: 20px;
   cursor: pointer;
 
   color: #fff;
-  background-color: #555;
+  background-color: $color-primary;
 
   &:hover {
-    background-color: #666;
+    background-color: rgba($color-primary, 0.8);
   }
 
-  &:active {
-    background-color: #777;
+  div {
+    transition: transform 0.2s ease;
   }
 
   .key-code__secondary {
-    flex-basis: 13px;
-    align-self: baseline;
-    font-size: 0.75rem;
+    @include key-code-secondary();
   }
 
   .key-code__primary {
-    flex-grow: 1;
-    text-align: center;
+    @include key-code-primary();
   }
 
   &.active {
     border-radius: 10px;
-    background-color: #777;
-    transition: all 0.2s ease;
+    background-color: $color-secondary;
   }
 
   &.highlight::after {
@@ -56,6 +67,37 @@
   &.key-item__letter {
     .key-code__secondary {
       opacity: 0;
+    }
+  }
+}
+
+.keyboard.shift {
+  .key-item {
+    .key-code__secondary {
+      color: $color-secondary;
+    }
+  }
+
+  .key-item__letter {
+    .key-code__secondary {
+      @include key-code-primary();
+      opacity: 1;
+      color: #fff;
+    }
+
+    .key-code__primary {
+      display: none;
+    }
+  }
+
+  & .key-item:not(.key-item__letter) {
+    &:not(.key-item__function) {
+      .key-code__secondary {
+        transform: translate(5px, 5px) scale(1.2);
+      }
+      .key-code__primary {
+        transform: translate(10px, 10px) scale(0.7);
+      }
     }
   }
 }

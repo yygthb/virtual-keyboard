@@ -28,7 +28,9 @@ export class Key {
 
     this.container = createElement({
       tagName: 'button',
-      classNames: `key-item ${this.className}`,
+      classNames: `${
+        this.isFunction ? 'key-item key-item__function' : 'key-item'
+      } ${this.className}`,
       child: [this.secondaryKeyNode, this.primaryKeyNode],
     });
 
