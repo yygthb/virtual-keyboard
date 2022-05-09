@@ -136,7 +136,7 @@ export default {
     isFunction: true,
   },
   Slash: { key: '/', shiftKey: '?', className: 'slash' },
-  Space: { key: ' ', shiftKey: null, className: 'space' },
+  Space: { key: ' ', shiftKey: ' ', className: 'space' },
   Tab: {
     key: 'Tab',
     shiftKey: null,

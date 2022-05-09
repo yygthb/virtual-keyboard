@@ -170,6 +170,20 @@ export default class KeyBoard {
       this.textarea.selectionStart = this.cursorPosition;
     }
 
+    // arrow up
+    if (key.code === 'ArrowUp') {
+      this.textarea.value = this.#updateText(this.cursorPosition, '⮝');
+      this.cursorPosition += 1;
+      this.textarea.selectionEnd = this.cursorPosition;
+    }
+
+    // arrow down
+    if (key.code === 'ArrowDown') {
+      this.textarea.value = this.#updateText(this.cursorPosition, '⮟');
+      this.cursorPosition += 1;
+      this.textarea.selectionEnd = this.cursorPosition;
+    }
+
     // backspace
     if (key.code === 'Backspace' && this.cursorPosition > 0) {
       const originalText = this.textarea.value;
